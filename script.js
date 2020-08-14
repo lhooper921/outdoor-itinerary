@@ -193,8 +193,8 @@ function searchCity(city){
     $("#search-button").on("click", function(event){
     
        event.preventDefault();
-      var recRadio = $("input[name='recreation']:checked").val();
-      var restaurantRadio= $("input[name='restaurants']:checked").val();
+      var recRadio = $("input[id='recreation']:checked").val();
+      var restaurantRadio= $("input[id='restaurants']:checked").val();
       
       var inputCity = $('#city-input').val().trim();
       
