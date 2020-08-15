@@ -471,3 +471,27 @@ $(function () {
         }
     )
 })
+// Initialize and add the map
+function initMap() {
+    // The location on map (San Diego):
+    var location = { lat: 32.715, lng: -117.161 };
+    // The map, centered on screen:
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 4,
+        center: location,
+    });
+
+    // Create search box inside map:
+    var input = document.getElementById("searchInput");
+    var searchBox = new google.maps.places.SearchBox(input);
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+    map.addListener("bounds_changed", () => {
+        searchBox.setBounds(map.getBounds());
+    });
+
+    // The marker, positioned at our location (San Diego)
+    var marker = new google.maps.Marker({
+        position: location,
+        map: map
+    });
+};
