@@ -1,5 +1,18 @@
+// Use pushpin to fix position of planner
+var pushpinDiv = document.getElementById('planner-body');
+var pushpinDivOptions = {
+    top: 60,
+    offset: 20,
+
+}
+var instancePushpinDiv = M.Pushpin.init(pushpinDiv, pushpinDivOptions);
+
+
+
+
 function searchCity(city) {
 
+    // API query for nearby recreational activites
     var apiKey = "wbf55l3tkQ9RJGxEQhCH0cvdoCkqRCeLkoEssIp6"
     var queryURL1 = "https://developer.nps.gov/api/v1/parks?limit=10&q=" + city + "&api_key=" + apiKey;
     console.log(queryURL1);
@@ -9,39 +22,45 @@ function searchCity(city) {
     }).then(function (response) {
         console.log(response);
 
-        $("#results-content").empty();
+
+        $("#main-content").empty();
 
         if (response.total === "0") {
 
-           
+
 
             console.log("no results in your area");
 
             var noResults = $("<h5>");
             noResults.text("No recreation search results found. Please try again")
-            $("#results-content").append(noResults);
+            $("#main-content").append(noResults);
 
             var hint = $("<p>");
             hint.text("(Try to broaden your search by entering the next nearby major city or try searching by state.)");
-            $("#results-content").append(hint);
+            $("#main-content").append(hint);
 
-          
-        } else {
 
             for (var i = 0; i < response.data.length; i++) {
 
-                $('.tooltipped').tooltip();
-
                 var natureCard = $("<div>");
                 natureCard.addClass("card rec-card");
-                $("#results-content").append(natureCard);
+                $("#main-content").append(natureCard);
 
                 var imgURL = response.data[i].images[0].url;
                 var imgDiv = $("<div>").addClass("card-image");
                 natureCard.append(imgDiv);
                 var cardImg = $("<img>");
                 cardImg.attr("src", imgURL);
+
+                var addButton = $("<a>").addClass("btn-floating halfway-fab waves-effect waves-light red")
+                addButton.attr("id", "addButton");
+                var addIcon = $("<i>").addClass("material-icons").text("add")
+                addButton.append(addIcon)
+                imgDiv.append(addButton)
                 imgDiv.append(cardImg);
+
+
+
 
                 var cardBody = $("<div>");
                 cardBody.addClass("card-content");
@@ -51,20 +70,8 @@ function searchCity(city) {
                 // console.log(response.data[i].fullName);
                 var natureTitle = $('<span>');
                 natureTitle.text(response.data[i].fullName);
-
                 natureTitle.addClass("card-title");
                 imgDiv.append(natureTitle);
-
-                var addBtn = $("<a>");
-                addBtn.addClass("btn tooltipped btn-floating halfway-fab waves-effect waves-light red");
-                addBtn.attr("data-position", "right");
-                addBtn.attr("data-tooltip", "click here to add to planner");
-                addBtn.val(response.data[i].fullName);
-                imgDiv.append(addBtn);
-                var iAdd = $("<i>");
-                iAdd.addClass("material-icons");
-                iAdd.text("+");
-                addBtn.append(iAdd);
 
 
                 // console.log(response.data[i].description);
@@ -94,10 +101,10 @@ function searchCity(city) {
                     console.log(recPlan);
 
                     var newListItem = $('<li>');
-                        newListItem.draggable();
-                        newListItem.addClass("ui-widget-content");
-                        $(newListItem).append(recPlan);
-                        $('ul').append(newListItem);
+                    newListItem.draggable();
+                    newListItem.addClass("ui-widget-content");
+                    $(newListItem).append(recPlan);
+                    $('ul').append(newListItem);
 
 
 
@@ -137,10 +144,10 @@ function searchCity(city) {
 
             }
         }
+
     })
-
+    $("#city-input").val('');
 }
-
 
 
 
@@ -149,7 +156,7 @@ function searchCity(city) {
 function searchRestaurants(inputCity) {
 
 
-    $("#rec-content").empty();
+    $("#main-content").empty();
 
 
     $.ajax({
@@ -178,96 +185,129 @@ function searchRestaurants(inputCity) {
                 success: function (response) {
                     console.log(response)
 
+                    restNameArr = [];
 
                     for (var i = 0; i < 7; i++) {
-
+                        // Create a div 
+                        // Add to rest-content 
                         var restaurantCard = $("<div>")
                         restaurantCard.addClass("card rest-card");
                         restaurantCard.draggable();
                         restaurantCard.addClass("ui-widget-content");
-                        $("#rec-content").append(restaurantCard);
+                        $("#main-content").append(restaurantCard);
 
 
-
-                        var imgURL = "https://upload.wikimedia.org/wikipedia/commons/6/6d/Good_Food_Display_-_NCI_Visuals_Online.jpg";
-                        console.log(imgURL);
+                        // Retrieve image
+                        // Create image div
+                        // Add image div to card
+                        // Create image element
+                        // Set attributes
+                        // Add to image div
+                        var imgURL = "https://loremflickr.com/320/240/restaurant" + [i];
                         var imgDiv = $("<div>").addClass("card-image");
                         restaurantCard.append(imgDiv);
                         var cardImg = $("<img>");
                         cardImg.attr("src", imgURL);
-                        imgDiv.attr("width", 100)
                         imgDiv.append(cardImg);
+
+                        let restaurantName = response.restaurants[i].restaurant.name;
+                        restNameArr[i] = restaurantName;
 
 
 
 
                         // Get restaurant name
-                        let restaurantName = response.restaurants[i].restaurant.name;
-
                         // Create element to hold restaurant name
+                        // Add restaurant name text to the restaurant name element
+                        // Add restaurant name element to imgDiv 
+
                         var restNameEl = $("<span>");
                         restNameEl.addClass("card-title");
-                        // Add restaurant name text to the restaurant name element
+                        restNameEl.attr("id", "restaurant-name")
                         $(restNameEl).text(restaurantName);
-
-                        //    Add restaurant name element to imgDiv
                         imgDiv.append(restNameEl);
 
-                        console.log(restaurantName);
-
-
+                        // Create card body
                         var cardBody = $("<div>");
                         cardBody.addClass("card-content");
                         restaurantCard.append(cardBody);
 
-                        // //build the save
-                        //    const addButtonDiv = $('<button>',{
-                        //        type: 'submit'
-                        //    });
-                        //    addButtonDiv.text("Add to your day!")
-                        //    addButtonDiv.addClass('col s3');
-                        //    addButtonDiv.addClass('addButton');
-
-
-
-
-                        // // append to card 
-                        //    cardBody.append(addButtonDiv);
-
-
                         // Get restaurant cuisine type
-                        let restaurantCuisine = response.restaurants[i].restaurant.cuisines;
                         // Create element to hold restaurant cuisine type
+                        // Add restaurant cuisine element to card body
+                        // Add restaurant cuisine type text to the restaurant cuisine element
+                        let restaurantCuisine = response.restaurants[i].restaurant.cuisines;
                         var restCuisineEl = $("<p>").addClass("rest-cuisine")
-                        //    Add restaurant cuisine element to card body
                         cardBody.append(restCuisineEl);
-                        //    Add restaurant cuisine type text to the restaurant cuisine element
                         $(restCuisineEl).text("Cuisine type: " + restaurantCuisine)
-                        console.log(restaurantCuisine);
-
-
 
                         // Get restaurant cuisine user rating
-                        let restaurantRating = response.restaurants[i].restaurant.user_rating.aggregate_rating;
                         // Create element to hold restaurant user rating
-                        var restaurantRatingEl = $("<p>").addClass("rest-hours")
                         // Create element to hold restaurant user rating type
+                        //Add restaurant user rating text to the restaurant user rating element 
+                        let restaurantRating = response.restaurants[i].restaurant.user_rating.aggregate_rating;
+                        var restaurantRatingEl = $("<p>").addClass("rest-hours")
                         cardBody.append(restaurantRatingEl);
-                        //    Add restaurant user rating text to the restaurant user rating element 
-                        $(restaurantRatingEl).text("Rating: " + restaurantRating)
-                        console.log(restaurantRating);
+                        $(restaurantRatingEl).text("Average Zomato Rating: " + restaurantRating)
 
-                        let restaurantMenu = response.restaurants[i].restaurant.menu_url;
-                        var restMenuEl = $("<a>");
-                        restMenuEl.attr("href", restaurantMenu);
-                        restMenuEl.attr("title", "Menu");
-                        restMenuEl.text("View the Menu");
-                        cardBody.append(restMenuEl);
 
-                        console.log(restaurantMenu);
+                        // Create link section of card
+                        // Add link section to main card
+                        // Create menu link
+                        // Add menu link to links section
+                        var cardLinksSection = $("<div>").addClass("card-action");
+                        restaurantCard.append(cardLinksSection);
+                        var menuLink = $("<a>").text("View the Menu");
+                        menuLink.attr("href", response.restaurants[i].restaurant.menu_url);
+                        cardLinksSection.append(menuLink);
+
+                        var addButtonText = $("<p>").text("Click the button to add to your list")
+                        cardLinksSection.append(addButtonText);
+
+                        // Create red 'addbutton' and add to card
+                        var addButton = $("<a>").addClass("btn-floating waves-effect  red ");
+                        addButton.addClass("add-button");
+                        addButton.addClass("right")
+                        addButton.attr("rest-name", restaurantName);
+                        var addIcon = $("<i>").addClass("material-icons center-align").text(restaurantName)
+
+                        addButtonText.append(addButton)
+                        addButton.append(addIcon)
+                        //    var newListItem = '<li></li>'
+                        //     $('ul').append(newListItem);
+
+                        //      // Create heading for selections
+                        //     var selContentTitle = $("<h5>Selected Activities</h5>").addClass("center-align");
+                        //     selContentTitle.append('#sel-content');
+
+                        //     // console.log("Add button is clickable!")
+
+                        //     restaurantNameText = document.getElementsByClassName("card-title").innerHTML;
+                        //     console.log(restaurantNameText);
+                        //     $('li').append(restaurantNameText);
+
+
+
+
+
 
                     }
+                    // Add button function
+                    $(".add-button").click(function (e) {
+                        event.preventDefault();
 
+                        var textToMove = e.currentTarget.text
+                        console.log(textToMove);
+
+                        newListItem = $('<li>');
+                        newListItem.draggable();
+                        newListItem.addClass("ui-widget-content");
+                        $(newListItem).append(textToMove);
+                        $('ul').append(newListItem);
+
+
+
+                    })
 
                 }
             })
@@ -284,6 +324,10 @@ function searchRestaurants(inputCity) {
 $("#search-button").on("click", function (event) {
 
     event.preventDefault();
+
+
+    $('#sel-title').empty();
+
     var recRadio = $("input[id='recreation']:checked").val();
     var restaurantRadio = $("input[id='restaurants']:checked").val();
 
@@ -294,29 +338,33 @@ $("#search-button").on("click", function (event) {
     } else if (restaurantRadio) {
         searchRestaurants(inputCity);
     }
-
+    // Create heading for selections
+    selContentTitle = $("<h5>Selected Activities</h5>");
+    $('#sel-content').prepend(selContentTitle);
 })
 
 
 
 
-// search click event
 
-//   $("#search-button").on("click", function(event){
+// //   search click event
 
-//      event.preventDefault();
-//       var inputCity = $('#city-input').val().trim();
+// $("#search-button").on("click", function (event) {
+
+//     event.preventDefault();
+//     var inputCity = $('#city-input').val().trim();
 
 //     searchRestaurants(inputCity);
+//     searchCity(inputCity)
 
-//   })
+// })
 
 // Create schedule
 // Define Variables
 let currentDate = moment().format("dddd, MMMM Do YYYY");
 let globalHour = moment().format("HH");
 
-const hours = [9, 10, 11, 12, 13, 14, 15, 16, 17];
+const hours = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
 const container = $('#planner-body');
 
 
@@ -331,7 +379,7 @@ $("#currentDay").text(currentDate);
 hours.forEach(function (hour) {
     // Build the row
     const rowDiv = $('<form>');
-    rowDiv.addClass('row');
+
     rowDiv.addClass('row time-block ui-widget-header');
     // build the hour div
     const hourDiv = $('<div>');
@@ -340,19 +388,22 @@ hours.forEach(function (hour) {
     const currentHour = hour === 12 ? 12 : hour % 12;
     const amOrPm = (hour > 11) ? 'PM' : 'AM';
     hourDiv.text(currentHour + ' ' + amOrPm);
-    hourDiv.addClass('col');
+    hourDiv.addClass('col s3');
     hourDiv.addClass('hour');
 
 
     // append to row div
+    // hourDiv.addClass("ui-widget-header");
     rowDiv.append(hourDiv);
 
     // build the input
     const inputDiv = $('<input>', {
         type: 'Text',
     })
-    inputDiv.addClass('col s10');
-    inputDiv.attr('id', 'taskHour' + hour);
+    inputDiv.addClass('col s6');
+    // inputDiv.addClass("ui-widget-header");
+
+
 
     inputDiv.val(localStorage.getItem("taskHour" + hour));
     // Add classes based on current time
@@ -369,19 +420,6 @@ hours.forEach(function (hour) {
 
     // append to row div
     rowDiv.append(inputDiv);
-
-    //build the save
-    const saveDiv = $('<button>', {
-        type: 'submit'
-    });
-    saveDiv.addClass('col s1');
-    saveDiv.addClass('saveBtn');
-    saveDiv.addClass("fa fa-plus-circle fa-2x");
-
-    // append to row div  
-    rowDiv.append(saveDiv);
-
-    // append to container div
     container.append(rowDiv);
 
 })
@@ -391,15 +429,40 @@ $(function () {
     $(".ui-widget-header").droppable(
         {
             hoverClass: "drop-hover",
-            accept: ".ui-widget-content", 
+            accept: ".ui-widget-content",
 
             drop: function (ev, ui) {
-                
-                 var plannerText =$(ui.draggable).text()
+                alert("I am dropped");
+                var plannerText = $(ui.draggable).text()
                 $(this).find("input").val(plannerText)
                 // $(ui.draggable).detach().css({top: 0,left: 0}).appendTo(this);
-              
-              
+
+
+
+
+
+
+            }
+        }
+    )
+})
+
+
+
+$(function () {
+    $(".ui-widget-content").draggable();
+    $(".ui-widget-header").droppable(
+        {
+            hoverClass: "drop-hover",
+            accept: ".ui-widget-content",
+
+            drop: function (ev, ui) {
+
+                var plannerText = $(ui.draggable).text()
+                $(this).find("input").val(plannerText)
+                // $(ui.draggable).detach().css({top: 0,left: 0}).appendTo(this);
+
+
 
 
 
