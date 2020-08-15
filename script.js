@@ -273,6 +273,8 @@ $("#search-button").on("click", function (event) {
     // Create heading for selections
     selContentTitle = $("<h5>Selected Activities</h5>");
     $('#sel-content').prepend(selContentTitle);
+
+    
 })
 
 
@@ -338,16 +340,16 @@ hours.forEach(function (hour) {
 
 
     inputDiv.val(localStorage.getItem("taskHour" + hour));
-    // Add classes based on current time
-    if (hour === globalHour) {
-        inputDiv.addClass('present');
-    }
-    if (hour < globalHour) {
-        inputDiv.addClass('past');
-    }
-    if (hour > globalHour) {
-        inputDiv.addClass('future');
-    }
+    // // Add classes based on current time
+    // if (hour === globalHour) {
+    //     inputDiv.addClass('present');
+    // }
+    // if (hour < globalHour) {
+    //     inputDiv.addClass('past');
+    // }
+    // if (hour > globalHour) {
+    //     inputDiv.addClass('future');
+    // }
 
 
     // append to row div
@@ -368,7 +370,7 @@ $(function () {
                  var plannerText =$(ui.draggable).text()
                 $(this).find("input").val(plannerText)
                 $(ui.draggable).detach().css({top: 0,left: 0}).appendTo("input");
-              
+                localStorage.setItem(plannerText.attr("id"),plannerText.val())
               
 
 
