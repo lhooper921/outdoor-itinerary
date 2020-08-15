@@ -391,7 +391,7 @@ $(function () {
     $(".ui-widget-header").droppable(
         {
             hoverClass: "drop-hover",
-            accept: ".ui-widget-content",
+            accept: ".ui-widget-content", 
 
             drop: function (ev, ui) {
                 
