@@ -1,0 +1,14 @@
+
+.time-block{
+    border: 1px solid gray;
+  }
+
+ .add-button {
+   text-align:center;
+   margin-right: 1rem;
+ }
+
+ i {
+   align-items: center;
+ }
+ 
