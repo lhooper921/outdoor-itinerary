@@ -17,6 +17,9 @@
     <!-- materialize JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
+    <!-- Materialize Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
     <!--  Font Awesome Icons    -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
         integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
@@ -30,64 +33,90 @@
 </head>
 
 <body>
-    <div class="container">
-        <header class="jumbotron  light-blue darken-1">
-            <h1 class="display-3">Outdoor Itinerary</h1>
-            <p id="currentDay" class="lead"></p>
-            <div class="col s12"></div>
-        </header>
-
-        <!-- Planner   -->
+    <!--     <div class="container"> -->
+    <header class="jumbotron  light-blue darken-1 center-align">
+        <h1 class="display-3">Outdoor Itinerary</h1>
+        <p id="currentDay" class="lead"></p>
+    </header>
+<div class="container">
 
         <div class="row">
-            <div class="col s12">
-                <div id="planner-body">
-                    <span class="flow-text">Day Planner</span>
+            
+                <div class="col s5">
+
+                    <div id="planner-body" class="pushpin">
+                        <span class="flow-text">Day Planner</span>
+                      
                 </div>
             </div>
-        </div>
 
 
-        <!-- Basic Search Form   -->
-        <div class="col s8">
-            <h5 class="lead">Plan your day</h5>
-            <form id="search-form">
-                <label for="search-input">Search</label>
-                <input type="text" id="city-input">
-                <br>
-                <input id="search-button" type="submit" value="Search">
-                <p>
-                    <label>
-                        <input class="with-gap" id="recreation" name="group1" type="radio" />
-                        <span>Recreation</span>
-                    </label>
 
-                    <label>
-                        <input class="with-gap" id="restaurants" name="group1" type="radio" />
-                        <span>Restaurants</span>
-                    </label>
+            <!-- Basic Search Form   -->
 
-                    <label>
-                        <input class="with-gap" id="transportaion" name="group1" type="radio" />
-                        <span>Transportation</span>
-                    </label>
-                </p>
-            </form>
+            <div class="col s7 ">
+                <h5 class="right-align">What city are you in today?</h5>
+                <form id="search-form" class="right-align">
 
-            <div class="row">
-                <div class="col s12 m7">
-                    <div id="rec-content">
+                    <label for="search-input">Search by city</label>
+                    <input type="text" id="city-input">
+
+                    <p> I would like to...
+                        <label>
+                            <input class="with-gap" id="recreation" name="group1" type="radio" />
+                            <span>enjoy the outdoors</span>
+                        </label>
+                        <label>
+                            <input class="with-gap" id="restaurants" name="group1" type="radio" />
+                            <span>get something to eat</span>
+                        </label>
+                    </p>
+
+                    <input id="search-button" type="submit" value="Search">
+                </form>
+
+
+
+
+                <div class="row">
+                    
+
+                    <div class="col s6 "id="sel-content">
+                       
+                      
+                            <ul></ul>
                         
+                    </div>
+
+                    <div class="col s6" id="results-content">
+
+                        <div id="main-content">
+
+                        </div>
+
                     </div>
                 </div>
             </div>
         </div>
     </div>
+<<<<<<< HEAD
+
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="script.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+</body>
+</div>
+=======
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="script.js"></script>
    
 
 </body>
+>>>>>>> 63e3a2ba5e43723c0cf6ea44d4729b4c3eafd774
 
 </html>
