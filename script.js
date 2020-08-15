@@ -200,8 +200,8 @@ function searchRestaurants(inputCity) {
                         var addButton = $("<a>").addClass("btn-floating waves-effect  red ");
                         addButton.addClass("add-button");
                         addButton.addClass("right")
-                        addButton.val(response.restaurants[i].restaurant.name);
-                        var addIcon = $("<i>").addClass("material-icons")
+                        addButton.attr("rest-name", restaurantName);
+                        var addIcon = $("<i>").addClass("material-icons center-align").text(restaurantName)
 
                         addButtonText.append(addButton)
                         addButton.append(addIcon)
@@ -228,7 +228,7 @@ function searchRestaurants(inputCity) {
                     $(".add-button").click(function (e) {
                         event.preventDefault();
 
-                        var textToMove =$(this).val()
+                        var textToMove = e.currentTarget.text
                         console.log(textToMove);
 
                         newListItem = $('<li>');
