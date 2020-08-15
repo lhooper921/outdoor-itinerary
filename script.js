@@ -397,7 +397,6 @@ $(function () {
                 
                  var plannerText =$(ui.draggable).text()
                 $(this).find("input").val(plannerText)
-                
                 // $(ui.draggable).detach().css({top: 0,left: 0}).appendTo(this);
               
               
