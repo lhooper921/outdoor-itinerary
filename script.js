@@ -9,7 +9,7 @@ function searchCity(city) {
     }).then(function (response) {
         console.log(response);
 
-        $("#rec-content").empty();
+        $("#results-content").empty();
 
         if (response.total === "0") {
 
@@ -19,11 +19,11 @@ function searchCity(city) {
 
             var noResults = $("<h5>");
             noResults.text("No recreation search results found. Please try again")
-            $("#rec-content").append(noResults);
+            $("#results-content").append(noResults);
 
             var hint = $("<p>");
             hint.text("(Try to broaden your search by entering the next nearby major city or try searching by state.)");
-            $("#rec-content").append(hint);
+            $("#results-content").append(hint);
 
           
         } else {
@@ -34,7 +34,7 @@ function searchCity(city) {
 
                 var natureCard = $("<div>");
                 natureCard.addClass("card rec-card");
-                $("#rec-content").append(natureCard);
+                $("#results-content").append(natureCard);
 
                 var imgURL = response.data[i].images[0].url;
                 var imgDiv = $("<div>").addClass("card-image");
@@ -85,41 +85,51 @@ function searchCity(city) {
 
 
 
-                addBtn.on("click", function () {
+                addBtn.on("click", function (event) {
+                    event.preventDefault();
 
-                    var recPlan = $(this).val();
+                    // var recPlan = $(this).val();
+                    var recPlan = event.currentTarget.value;
                     console.log("add me");
                     console.log(recPlan);
 
-                    var input9 = $("#taskHour9");
-                    var input10 = $("#taskHour10");
-                    var input11 = $("#taskHour11");
-                    var input12 = $("#taskHour12");
-                    var input1 = $("#taskHour13");
-                    var input2 = $("#taskHour14");
-                    var input3 = $("#taskHour15");
-                    var input4 = $("#taskHour16");
-                    var input5 = $("#taskHour17");
+                    var newListItem = $('<li>');
+                        newListItem.draggable();
+                        newListItem.addClass("ui-widget-content");
+                        $(newListItem).append(recPlan);
+                        $('ul').append(newListItem);
 
-                    if (input9.val() === "") {
-                        input9.val(input9.val() + recPlan);
-                    } else if (input10.val() === "") {
-                        input10.val(input10.val() + recPlan);
-                    } else if (input11.val() === "") {
-                        input11.val(input11.val() + recPlan);
-                    } else if (input12.val() === "") {
-                        input12.val(input12.val() + recPlan);
-                    } else if (input1.val() === "") {
-                        input1.val(input1.val() + recPlan);
-                    } else if (input2.val() === "") {
-                        input2.val(input2.val() + recPlan);
-                    } else if (input3.val() === "") {
-                        input3.val(input3.val() + recPlan);
-                    } else if (input4.val() === "") {
-                        input4.val(input4.val() + recPlan);
-                    } else if (input5.val() === "") {
-                        input5.val(input5.val() + recPlan);
-                    }
+
+
+                    // var input9 = $("#taskHour9");
+                    // var input10 = $("#taskHour10");
+                    // var input11 = $("#taskHour11");
+                    // var input12 = $("#taskHour12");
+                    // var input1 = $("#taskHour13");
+                    // var input2 = $("#taskHour14");
+                    // var input3 = $("#taskHour15");
+                    // var input4 = $("#taskHour16");
+                    // var input5 = $("#taskHour17");
+
+                    // if (input9.val() === "") {
+                    //     input9.val(input9.val() + recPlan);
+                    // } else if (input10.val() === "") {
+                    //     input10.val(input10.val() + recPlan);
+                    // } else if (input11.val() === "") {
+                    //     input11.val(input11.val() + recPlan);
+                    // } else if (input12.val() === "") {
+                    //     input12.val(input12.val() + recPlan);
+                    // } else if (input1.val() === "") {
+                    //     input1.val(input1.val() + recPlan);
+                    // } else if (input2.val() === "") {
+                    //     input2.val(input2.val() + recPlan);
+                    // } else if (input3.val() === "") {
+                    //     input3.val(input3.val() + recPlan);
+                    // } else if (input4.val() === "") {
+                    //     input4.val(input4.val() + recPlan);
+                    // } else if (input5.val() === "") {
+                    //     input5.val(input5.val() + recPlan);
+                    // }
                 })
 
 
@@ -322,7 +332,7 @@ hours.forEach(function (hour) {
     // Build the row
     const rowDiv = $('<form>');
     rowDiv.addClass('row');
-    rowDiv.addClass('time-block');
+    rowDiv.addClass('row time-block ui-widget-header');
     // build the hour div
     const hourDiv = $('<div>');
 
@@ -374,4 +384,27 @@ hours.forEach(function (hour) {
     // append to container div
     container.append(rowDiv);
 
+})
+
+$(function () {
+    $(".ui-widget-content").draggable();
+    $(".ui-widget-header").droppable(
+        {
+            hoverClass: "drop-hover",
+            accept: ".ui-widget-content",
+
+            drop: function (ev, ui) {
+                alert("I am dropped");
+                 var plannerText =$(ui.draggable).text()
+                $(this).find("input").val(plannerText)
+                // $(ui.draggable).detach().css({top: 0,left: 0}).appendTo(this);
+              
+              
+
+
+
+
+            }
+        }
+    )
 })
