@@ -10,11 +10,11 @@ var instancePushpinDiv = M.Pushpin.init(pushpinDiv, pushpinDivOptions);
 
 
 
-function searchCity(city) {
+function searchCity(inputCity) {
 
     // API query for nearby recreational activites
     var apiKey = "wbf55l3tkQ9RJGxEQhCH0cvdoCkqRCeLkoEssIp6"
-    var queryURL1 = "https://developer.nps.gov/api/v1/parks?limit=10&q=" + city + "&api_key=" + apiKey;
+    var queryURL1 = "https://developer.nps.gov/api/v1/parks?limit=10&q=" + inputCity + "&api_key=" + apiKey;
     console.log(queryURL1);
     $.ajax({
         url: queryURL1,
@@ -117,7 +117,7 @@ function searchRestaurants(inputCity) {
                 success: function (response) {
                     console.log(response)
 
-                    restNameArr = [];
+                    
 
                     for (var i = 0; i < 7; i++) {
                         // Create a div 
@@ -143,7 +143,7 @@ function searchRestaurants(inputCity) {
                         imgDiv.append(cardImg);
 
                         let restaurantName = response.restaurants[i].restaurant.name;
-                        restNameArr[i] = restaurantName;
+                      
 
 
 
@@ -205,19 +205,7 @@ function searchRestaurants(inputCity) {
 
                         addButtonText.append(addButton)
                         addButton.append(addIcon)
-                        //    var newListItem = '<li></li>'
-                        //     $('ul').append(newListItem);
-
-                        //      // Create heading for selections
-                        //     var selContentTitle = $("<h5>Selected Activities</h5>").addClass("center-align");
-                        //     selContentTitle.append('#sel-content');
-
-                        //     // console.log("Add button is clickable!")
-
-                        //     restaurantNameText = document.getElementsByClassName("card-title").innerHTML;
-                        //     console.log(restaurantNameText);
-                        //     $('li').append(restaurantNameText);
-
+                   
 
 
 
@@ -279,20 +267,6 @@ $("#search-button").on("click", function (event) {
 
 
 
-
-
-// //   search click event
-
-// $("#search-button").on("click", function (event) {
-
-//     event.preventDefault();
-//     var inputCity = $('#city-input').val().trim();
-
-//     searchRestaurants(inputCity);
-//     searchCity(inputCity)
-
-// })
-
 // Create schedule
 // Define Variables
 let currentDate = moment().format("dddd, MMMM Do YYYY");
@@ -313,7 +287,7 @@ $("#currentDay").text(currentDate);
 hours.forEach(function (hour) {
     // Build the row
     const rowDiv = $('<form>');
-    rowDiv.addClass('row time-block ui-widget-header pushpin');
+    rowDiv.addClass('row time-block ui-widget-header');
 
     // build the hour div
     const hourDiv = $('<div>');
@@ -370,7 +344,7 @@ $(function () {
                  var plannerText =$(ui.draggable).text()
                 $(this).find("input").val(plannerText)
                 $(ui.draggable).detach().css({top: 0,left: 0}).appendTo("input");
-                localStorage.setItem(plannerText.attr("id"),plannerText.val())
+               
               
 
 
