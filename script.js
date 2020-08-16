@@ -1,12 +1,8 @@
 
 
 function searchCity(inputCity) {
-<<<<<<< HEAD
   $("#main-content").empty();
     // API query for nearby recreational activites
-=======
-
->>>>>>> 53a02f7f494a19ccdf7da43c32db2f889814801d
     var apiKey = "wbf55l3tkQ9RJGxEQhCH0cvdoCkqRCeLkoEssIp6"
     var queryURL1 = "https://developer.nps.gov/api/v1/parks?limit=10&q=" + inputCity + "&api_key=" + apiKey;
     console.log(queryURL1);
@@ -16,12 +12,8 @@ function searchCity(inputCity) {
     }).then(function (response) {
         console.log(response);
 
-<<<<<<< HEAD
 
       
-=======
-        $("#main-content").empty();
->>>>>>> 53a02f7f494a19ccdf7da43c32db2f889814801d
 
         if (response.total == "0") {
             console.log("nothing here")
@@ -212,15 +204,14 @@ function searchRestaurants(inputCity) {
                     console.log(response)
 
                     
-
+                   
                     for (var i = 0; i < 7; i++) {
                         // Create a div 
                         // Add to rest-content 
                         var restaurantCard = $("<div>")
                         restaurantCard.addClass("card rest-card");
-                       
                         $("#main-content").append(restaurantCard);
-
+                        let restaurantName = response.restaurants[i].restaurant.name;
 
                         // Retrieve image
                         // Create image div
@@ -228,15 +219,24 @@ function searchRestaurants(inputCity) {
                         // Create image element
                         // Set attributes
                         // Add to image div
+
                         var imgURL = "https://loremflickr.com/320/240/restaurant" + [i];
                         var imgDiv = $("<div>").addClass("card-image");
                         restaurantCard.append(imgDiv);
                         var cardImg = $("<img>");
                         cardImg.attr("src", imgURL);
+                       
+
+                        var addButton = $("<a>").addClass("btn-floating halfway-fab waves-effect waves-light red")
+                        addButton.attr("id", "addButton" + i);
+                        addButton.val(restaurantName);
+                        var addIcon = $("<i>").addClass("material-icons").text("+");
+                        addButton.append(addIcon)
+                        imgDiv.append(addButton)
                         imgDiv.append(cardImg);
 
-                        let restaurantName = response.restaurants[i].restaurant.name;
-                      
+                       
+                        
 
 
 
@@ -286,41 +286,35 @@ function searchRestaurants(inputCity) {
                         menuLink.attr("href", response.restaurants[i].restaurant.menu_url);
                         cardLinksSection.append(menuLink);
 
-                        var addButtonText = $("<p>").text("Click the button to add to your list")
-                        cardLinksSection.append(addButtonText);
+                       
 
-                        // Create red 'addbutton' and add to card
-                        var addButton = $("<a>").addClass("btn-floating waves-effect  red ");
-                        addButton.addClass("add-button");
-                        addButton.addClass("right")
-                        addButton.attr("rest-name", restaurantName);
-                        var addIcon = $("<i>").addClass("material-icons center-align").text(restaurantName)
-
-                        addButtonText.append(addButton)
-                        addButton.append(addIcon)
+                      
                    
 
 
 
 
 
+                    
+                   
+
+        
+                        addButton.on("click", function (event) {
+                            event.preventDefault();
+        
+                            // var recPlan = $(this).val();
+                            var textToMove = event.currentTarget.value;
+                            console.log("add me");
+                            
+        
+                            var newListItem = $('<li>');
+                            newListItem.draggable();
+                            newListItem.addClass("ui-widget-content");
+                            $(newListItem).append(textToMove);
+                            $('ul').append(newListItem);
+                        })
+
                     }
-                    // Add button function
-                    $(".add-button").click(function (e) {
-                        event.preventDefault();
-
-                        var textToMove = e.currentTarget.text
-                        console.log(textToMove);
-
-                        // newListItem = $('<li>');
-                        // newListItem.draggable();
-                        // newListItem.addClass("ui-widget-content");
-                        // $(newListItem).append(textToMove);
-                        // $('ul').append(newListItem);
-
-
-
-                    })
 
                 }
             })
@@ -335,11 +329,11 @@ function searchRestaurants(inputCity) {
 // search click event
 
 $("#search-button").on("click", function (event) {
-
+ 
     event.preventDefault();
 
 
-    // $('#sel-title').empty();
+  
 
     var recRadio = $("input[id='recreation']:checked").val();
     var restaurantRadio = $("input[id='restaurants']:checked").val();
@@ -351,12 +345,8 @@ $("#search-button").on("click", function (event) {
     } else if (restaurantRadio) {
         searchRestaurants(inputCity);
     }
-    // Create heading for selections
-
-    selContentTitle = $("<h5>Selected Activities</h5>");
-    $('#sel-content').prepend(selContentTitle)
-    // selContentTitle = $("<h5>Selected Activities</h5>");
-    // $('#sel-content').prepend(selContentTitle);
+ 
+   
 })
 
 
@@ -411,7 +401,7 @@ hours.forEach(function (hour) {
         type: 'Text',
     })
     inputDiv.addClass('col s6');
-    // inputDiv.addClass("ui-widget-header");
+    inputDiv.addClass("ui-widget-header");
 
 
 
