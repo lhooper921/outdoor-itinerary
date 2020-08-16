@@ -1,7 +1,7 @@
 
 
 function searchCity(inputCity) {
-  $("#main-content").empty();
+    $("#main-content").empty();
     // API query for nearby recreational activites
     var apiKey = "wbf55l3tkQ9RJGxEQhCH0cvdoCkqRCeLkoEssIp6"
     var queryURL1 = "https://developer.nps.gov/api/v1/parks?limit=10&q=" + inputCity + "&api_key=" + apiKey;
@@ -13,7 +13,7 @@ function searchCity(inputCity) {
         console.log(response);
 
 
-      
+
 
         if (response.total == "0") {
             console.log("nothing here")
@@ -131,35 +131,35 @@ function searchCity(inputCity) {
 
 
 
-                // var input9 = $("#taskHour9");
-                // var input10 = $("#taskHour10");
-                // var input11 = $("#taskHour11");
-                // var input12 = $("#taskHour12");
-                // var input1 = $("#taskHour13");
-                // var input2 = $("#taskHour14");
-                // var input3 = $("#taskHour15");
-                // var input4 = $("#taskHour16");
-                // var input5 = $("#taskHour17");
+                    // var input9 = $("#taskHour9");
+                    // var input10 = $("#taskHour10");
+                    // var input11 = $("#taskHour11");
+                    // var input12 = $("#taskHour12");
+                    // var input1 = $("#taskHour13");
+                    // var input2 = $("#taskHour14");
+                    // var input3 = $("#taskHour15");
+                    // var input4 = $("#taskHour16");
+                    // var input5 = $("#taskHour17");
 
-                // if (input9.val() === "") {
-                //     input9.val(input9.val() + recPlan);
-                // } else if (input10.val() === "") {
-                //     input10.val(input10.val() + recPlan);
-                // } else if (input11.val() === "") {
-                //     input11.val(input11.val() + recPlan);
-                // } else if (input12.val() === "") {
-                //     input12.val(input12.val() + recPlan);
-                // } else if (input1.val() === "") {
-                //     input1.val(input1.val() + recPlan);
-                // } else if (input2.val() === "") {
-                //     input2.val(input2.val() + recPlan);
-                // } else if (input3.val() === "") {
-                //     input3.val(input3.val() + recPlan);
-                // } else if (input4.val() === "") {
-                //     input4.val(input4.val() + recPlan);
-                // } else if (input5.val() === "") {
-                //     input5.val(input5.val() + recPlan);
-                // }
+                    // if (input9.val() === "") {
+                    //     input9.val(input9.val() + recPlan);
+                    // } else if (input10.val() === "") {
+                    //     input10.val(input10.val() + recPlan);
+                    // } else if (input11.val() === "") {
+                    //     input11.val(input11.val() + recPlan);
+                    // } else if (input12.val() === "") {
+                    //     input12.val(input12.val() + recPlan);
+                    // } else if (input1.val() === "") {
+                    //     input1.val(input1.val() + recPlan);
+                    // } else if (input2.val() === "") {
+                    //     input2.val(input2.val() + recPlan);
+                    // } else if (input3.val() === "") {
+                    //     input3.val(input3.val() + recPlan);
+                    // } else if (input4.val() === "") {
+                    //     input4.val(input4.val() + recPlan);
+                    // } else if (input5.val() === "") {
+                    //     input5.val(input5.val() + recPlan);
+                    // }
                 })
 
             }
@@ -203,8 +203,8 @@ function searchRestaurants(inputCity) {
                 success: function (response) {
                     console.log(response)
 
-                    
-                   
+
+
                     for (var i = 0; i < 7; i++) {
                         // Create a div 
                         // Add to rest-content 
@@ -225,7 +225,7 @@ function searchRestaurants(inputCity) {
                         restaurantCard.append(imgDiv);
                         var cardImg = $("<img>");
                         cardImg.attr("src", imgURL);
-                       
+
 
                         var addButton = $("<a>").addClass("btn-floating halfway-fab waves-effect waves-light red")
                         addButton.attr("id", "addButton" + i);
@@ -235,8 +235,8 @@ function searchRestaurants(inputCity) {
                         imgDiv.append(addButton)
                         imgDiv.append(cardImg);
 
-                       
-                        
+
+
 
 
 
@@ -286,32 +286,23 @@ function searchRestaurants(inputCity) {
                         menuLink.attr("href", response.restaurants[i].restaurant.menu_url);
                         cardLinksSection.append(menuLink);
 
-                       
 
-                      
-                   
-
-
-
-
-
-                    
-                   
-
-        
-                        addButton.on("click", function (event) {
+                            // Add button click event
+                            addButton.on("click", function (event) {
                             event.preventDefault();
-        
-                            // var recPlan = $(this).val();
+
+                            //Define what text will be copied to activity list 
                             var textToMove = event.currentTarget.value;
-                            console.log("add me");
                             
-        
+                            // Create new li item for each button click (draggable)
                             var newListItem = $('<li>');
-                            newListItem.draggable();
-                            newListItem.addClass("ui-widget-content");
+                          
                             $(newListItem).append(textToMove);
+                            
                             $('ul').append(newListItem);
+                            // Draggable must be added here
+                            $('li').draggable();
+                            $('li').addClass("ui-widget-content");
                         })
 
                     }
@@ -327,63 +318,39 @@ function searchRestaurants(inputCity) {
 }
 
 // search click event
-
 $("#search-button").on("click", function (event) {
- 
     event.preventDefault();
-
-
-  
-
     var recRadio = $("input[id='recreation']:checked").val();
     var restaurantRadio = $("input[id='restaurants']:checked").val();
-
     var inputCity = $('#city-input').val().trim();
-
+    // radio button options
     if (recRadio) {
         searchCity(inputCity);
     } else if (restaurantRadio) {
         searchRestaurants(inputCity);
     }
- 
-   
 })
 
-
-
-
-
-    
-
-
-
-
 // Create schedule
+
 // Define Variables
 let currentDate = moment().format("dddd, MMMM Do YYYY");
 let globalHour = moment().format("HH");
-
 const hours = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
 const container = $('#planner-body');
-
-
 
 // Sets current date at the header
 $("#currentDay").text(currentDate);
 
-
-
-
-
+// Create rows for each hour
 hours.forEach(function (hour) {
+
     // Build the row
     const rowDiv = $('<form>');
-  
-
     rowDiv.addClass('row time-block ui-widget-header');
+
     // build the hour div
     const hourDiv = $('<div>');
-
     hourDiv.attr('id', 'hour-' + hour);
     const currentHour = hour === 12 ? 12 : hour % 12;
     const amOrPm = (hour > 11) ? 'PM' : 'AM';
@@ -391,9 +358,7 @@ hours.forEach(function (hour) {
     hourDiv.addClass('col s3');
     hourDiv.addClass('hour');
 
-
     // append to row div
-    // hourDiv.addClass("ui-widget-header");
     rowDiv.append(hourDiv);
 
     // build the input
@@ -403,17 +368,15 @@ hours.forEach(function (hour) {
     inputDiv.addClass('col s6');
     inputDiv.addClass("ui-widget-header");
 
-
-
-    inputDiv.val(localStorage.getItem("taskHour" + hour));
-
+    // Get planner items from local storage
+     inputDiv.val(localStorage.getItem("taskHour" + hour));
 
     // append to row div
     rowDiv.append(inputDiv);
     container.append(rowDiv);
-
 })
 
+// Drag and drop function
 $(function () {
     $(".ui-widget-content").draggable();
     $(".ui-widget-header").droppable(
@@ -422,12 +385,12 @@ $(function () {
             accept: ".ui-widget-content",
 
             drop: function (ev, ui) {
-               
-                 var plannerText =$(ui.draggable).text()
+
+                var plannerText = $(ui.draggable).text()
                 $(this).find("input").val(plannerText)
-                $(ui.draggable).detach().css({top: 0,left: 0}).appendTo("input");
-               
-            
+                $(ui.draggable).detach().css({ top: 0, left: 0 }).appendTo("input");
+
+
 
 
 
