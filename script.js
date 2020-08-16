@@ -11,7 +11,7 @@ var instancePushpinDiv = M.Pushpin.init(pushpinDiv, pushpinDivOptions);
 
 
 function searchCity(inputCity) {
-
+  $("#main-content").empty();
     // API query for nearby recreational activites
     var apiKey = "wbf55l3tkQ9RJGxEQhCH0cvdoCkqRCeLkoEssIp6"
     var queryURL1 = "https://developer.nps.gov/api/v1/parks?limit=10&q=" + inputCity + "&api_key=" + apiKey;
@@ -22,63 +22,131 @@ function searchCity(inputCity) {
     }).then(function (response) {
         console.log(response);
 
-        $("#main-content").empty();
 
-        for (var i = 0; i < response.data.length; i++) {
+      
 
-            var natureCard = $("<div>");
-            natureCard.addClass("card rec-card");
-            $("#main-content").append(natureCard);
-
-            var imgURL = response.data[i].images[0].url;
-            var imgDiv = $("<div>").addClass("card-image");
-            natureCard.append(imgDiv);
-            var cardImg = $("<img>");
-            cardImg.attr("src", imgURL);
-
-            var addButton = $("<a>").addClass("btn-floating halfway-fab waves-effect waves-light red")
-            addButton.attr("id", "addButton");
-            var addIcon = $("<i>").addClass("material-icons").text("add")
-            addButton.append(addIcon)
-            imgDiv.append(addButton)
-            imgDiv.append(cardImg);
+        if (response.total === "0") {
 
 
 
+            console.log("no results in your area");
 
-            var cardBody = $("<div>");
-            cardBody.addClass("card-content");
-            natureCard.append(cardBody);
+            var noResults = $("<h5>");
+            noResults.text("No recreation search results found. Please try again")
+            $("#main-content").append(noResults);
 
-
-            // console.log(response.data[i].fullName);
-            var natureTitle = $('<span>');
-            natureTitle.text(response.data[i].fullName);
-            natureTitle.addClass("card-title");
-            imgDiv.append(natureTitle);
+            var hint = $("<p>");
+            hint.text("(Try to broaden your search by entering the next nearby major city or try searching by state.)");
+            $("#main-content").append(hint);
 
 
-            // console.log(response.data[i].description);
-            var natureDescription = $("<p>");
-            natureDescription.addClass("nature-description");
-            natureDescription.text(response.data[i].description);
-            cardBody.append(natureDescription);
+            for (var i = 0; i < response.data.length; i++) {
+
+                var natureCard = $("<div>");
+                natureCard.addClass("card rec-card");
+                $("#main-content").append(natureCard);
+
+                var imgURL = response.data[i].images[0].url;
+                var imgDiv = $("<div>").addClass("card-image");
+                natureCard.append(imgDiv);
+                var cardImg = $("<img>");
+                cardImg.attr("src", imgURL);
+
+                var addButton = $("<a>").addClass("btn-floating halfway-fab waves-effect waves-light red")
+                addButton.attr("id", "addButton");
+                var addIcon = $("<i>").addClass("material-icons").text("add")
+                addButton.append(addIcon)
+                imgDiv.append(addButton)
+                imgDiv.append(cardImg);
 
 
 
-            // console.log(response.data[i].directionsUrl);
-            var cardLinksSection = $("<div>").addClass("card-action");
-            natureCard.append(cardLinksSection);
-            var directionsLink = $("<a>").text("Directions");
-            directionsLink.attr("href", response.data[i].directionsUrl);
-            cardLinksSection.append(directionsLink);
+
+                var cardBody = $("<div>");
+                cardBody.addClass("card-content");
+                natureCard.append(cardBody);
+
+
+                // console.log(response.data[i].fullName);
+                var natureTitle = $('<span>');
+                natureTitle.text(response.data[i].fullName);
+                natureTitle.addClass("card-title");
+                imgDiv.append(natureTitle);
+
+
+                // console.log(response.data[i].description);
+                var natureDescription = $("<p>");
+                natureDescription.addClass("nature-description");
+                natureDescription.text(response.data[i].description);
+                cardBody.append(natureDescription);
 
 
 
+                // console.log(response.data[i].directionsUrl);
+                var cardLinksSection = $("<div>").addClass("card-action");
+                natureCard.append(cardLinksSection);
+                var directionsLink = $("<a>").text("Directions");
+                directionsLink.attr("href", response.data[i].directionsUrl);
+                cardLinksSection.append(directionsLink);
+
+
+
+
+                addBtn.on("click", function (event) {
+                    event.preventDefault();
+
+                    // var recPlan = $(this).val();
+                    var recPlan = event.currentTarget.value;
+                    console.log("add me");
+                    console.log(recPlan);
+
+                    var newListItem = $('<li>');
+                    newListItem.draggable();
+                    newListItem.addClass("ui-widget-content");
+                    $(newListItem).append(recPlan);
+                    $('ul').append(newListItem);
+
+
+
+                    // var input9 = $("#taskHour9");
+                    // var input10 = $("#taskHour10");
+                    // var input11 = $("#taskHour11");
+                    // var input12 = $("#taskHour12");
+                    // var input1 = $("#taskHour13");
+                    // var input2 = $("#taskHour14");
+                    // var input3 = $("#taskHour15");
+                    // var input4 = $("#taskHour16");
+                    // var input5 = $("#taskHour17");
+
+                    // if (input9.val() === "") {
+                    //     input9.val(input9.val() + recPlan);
+                    // } else if (input10.val() === "") {
+                    //     input10.val(input10.val() + recPlan);
+                    // } else if (input11.val() === "") {
+                    //     input11.val(input11.val() + recPlan);
+                    // } else if (input12.val() === "") {
+                    //     input12.val(input12.val() + recPlan);
+                    // } else if (input1.val() === "") {
+                    //     input1.val(input1.val() + recPlan);
+                    // } else if (input2.val() === "") {
+                    //     input2.val(input2.val() + recPlan);
+                    // } else if (input3.val() === "") {
+                    //     input3.val(input3.val() + recPlan);
+                    // } else if (input4.val() === "") {
+                    //     input4.val(input4.val() + recPlan);
+                    // } else if (input5.val() === "") {
+                    //     input5.val(input5.val() + recPlan);
+                    // }
+                })
+
+
+
+
+            }
         }
 
     })
-    $("#city-input").val('');
+    // $("#city-input").val('');
 }
 
 
@@ -124,8 +192,7 @@ function searchRestaurants(inputCity) {
                         // Add to rest-content 
                         var restaurantCard = $("<div>")
                         restaurantCard.addClass("card rest-card");
-                        restaurantCard.draggable();
-                        restaurantCard.addClass("ui-widget-content");
+                       
                         $("#main-content").append(restaurantCard);
 
 
@@ -287,8 +354,9 @@ $("#currentDay").text(currentDate);
 hours.forEach(function (hour) {
     // Build the row
     const rowDiv = $('<form>');
-    rowDiv.addClass('row time-block ui-widget-header');
+  
 
+    rowDiv.addClass('row time-block ui-widget-header');
     // build the hour div
     const hourDiv = $('<div>');
 
@@ -314,16 +382,6 @@ hours.forEach(function (hour) {
 
 
     inputDiv.val(localStorage.getItem("taskHour" + hour));
-    // // Add classes based on current time
-    // if (hour === globalHour) {
-    //     inputDiv.addClass('present');
-    // }
-    // if (hour < globalHour) {
-    //     inputDiv.addClass('past');
-    // }
-    // if (hour > globalHour) {
-    //     inputDiv.addClass('future');
-    // }
 
 
     // append to row div
@@ -354,4 +412,7 @@ $(function () {
         }
     )
 })
+
+
+
 
