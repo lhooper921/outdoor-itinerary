@@ -124,10 +124,11 @@ function searchCity(inputCity) {
                     console.log(recPlan);
 
                     var newListItem = $('<li>');
-                    newListItem.draggable();
-                    newListItem.addClass("ui-widget-content");
+                  
                     $(newListItem).append(recPlan);
-                    $('ul').append(newListItem);
+                    $('ul').append(newListItem);  
+                    $('li').draggable();
+                    $('li').addClass("ui-widget-content");
 
 
 
