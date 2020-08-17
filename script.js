@@ -304,6 +304,7 @@ function searchRestaurants(inputCity) {
                             // Draggable must be added here
                             $('li').draggable();
                             $('li').addClass("ui-widget-content");
+    
                         })
 
                     }
@@ -317,6 +318,10 @@ function searchRestaurants(inputCity) {
 
 
 }
+$('#clear-button').on('click', function(event){
+    event.preventDefault();
+    $('li').remove();
+  });
 
 // search click event
 $("#search-button").on("click", function (event) {
@@ -375,6 +380,15 @@ hours.forEach(function (hour) {
     // append to row div
     rowDiv.append(inputDiv);
     container.append(rowDiv);
+    
+    
+    $("#save-button").on('click',function(event){
+    event.preventDefault();
+   var inputText = $(inputDiv).val();
+   console.log("yes im working");
+   localStorage.setItem("taskHour"+ hour, inputText);
+
+   })
 })
 
 // Drag and drop function
