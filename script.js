@@ -304,6 +304,7 @@ function searchRestaurants(inputCity) {
                             // Draggable must be added here
                             $('li').draggable();
                             $('li').addClass("ui-widget-content");
+    
                         })
 
                     }
@@ -317,6 +318,10 @@ function searchRestaurants(inputCity) {
 
 
 }
+$('#clear-button').on('click', function(event){
+    event.preventDefault();
+    $('li').remove();
+  });
 
 // search click event
 $("#search-button").on("click", function (event) {
