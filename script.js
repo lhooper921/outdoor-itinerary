@@ -380,6 +380,15 @@ hours.forEach(function (hour) {
     // append to row div
     rowDiv.append(inputDiv);
     container.append(rowDiv);
+    
+    
+    $("#save-button").on('click',function(event){
+    event.preventDefault();
+   var inputText = $(inputDiv).val();
+   console.log("yes im working");
+   localStorage.setItem("taskHour"+ hour, inputText);
+
+   })
 })
 
 // Drag and drop function
