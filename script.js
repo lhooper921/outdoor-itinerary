@@ -350,7 +350,7 @@ $("#search-button").on("click", function (event) {
 // Create schedule
 
 // Define Variables
-let currentDate = moment().format("dddd, MMMM Do YYYY");
+let currentDate = moment().format("dddd, MMMM Do YYYY; h:mm:ss a");
 let globalHour = moment().format("HH");
 const hours = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
 const container = $('#planner-body');
