@@ -323,6 +323,8 @@ $('#clear-button').on('click', function(event){
     $('li').remove();
   });
 
+ 
+
 // search click event
 $("#search-button").on("click", function (event) {
     event.preventDefault();
@@ -387,8 +389,15 @@ hours.forEach(function (hour) {
    var inputText = $(inputDiv).val();
    console.log("yes im working");
    localStorage.setItem("taskHour"+ hour, inputText);
+ });
 
-   })
+ $('#clear-planner-button').on('click', function(event){
+    event.preventDefault();
+    $(inputDiv.innerHTML()).remove();
+ 
+
+  });
+  
 })
 
 // Drag and drop function
