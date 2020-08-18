@@ -42,8 +42,9 @@ body {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
-  background-image: url(lake_forest_mountain.jpeg);
+  background-image: url(./lake_forest_mountain.jpeg);
   background-repeat: no-repeat;
+  background-size: cover;
   background-position: center;
   background-attachment: scroll;
 }
