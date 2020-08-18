@@ -10,11 +10,11 @@
 
 
 
-function searchCity(city) {
-
+function searchCity(inputCity) {
+    $("#main-content").empty();
     // API query for nearby recreational activites
     var apiKey = "wbf55l3tkQ9RJGxEQhCH0cvdoCkqRCeLkoEssIp6"
-    var queryURL1 = "https://developer.nps.gov/api/v1/parks?limit=10&q=" + city + "&api_key=" + apiKey;
+    var queryURL1 = "https://developer.nps.gov/api/v1/parks?limit=10&q=" + inputCity + "&api_key=" + apiKey;
     console.log(queryURL1);
     $.ajax({
         url: queryURL1,
@@ -23,12 +23,10 @@ function searchCity(city) {
         console.log(response);
 
 
-        $("#main-content").empty();
-
-        if (response.total === "0") {
 
 
-
+        if (response.total == "0") {
+            console.log("nothing here")
             console.log("no results in your area");
 
             var noResults = $("<h5>");
@@ -39,13 +37,18 @@ function searchCity(city) {
             hint.text("(Try to broaden your search by entering the next nearby major city or try searching by state.)");
             $("#main-content").append(hint);
 
+        } else {
 
             for (var i = 0; i < response.data.length; i++) {
 
+                $('.collapsible').collapsible();
+
+                //create card 
                 var natureCard = $("<div>");
                 natureCard.addClass("card rec-card");
                 $("#main-content").append(natureCard);
 
+                //add images
                 var imgURL = response.data[i].images[0].url;
                 var imgDiv = $("<div>").addClass("card-image");
                 natureCard.append(imgDiv);
@@ -54,19 +57,18 @@ function searchCity(city) {
 
                 var addButton = $("<a>").addClass("btn-floating halfway-fab waves-effect waves-light red")
                 addButton.attr("id", "addButton");
-                var addIcon = $("<i>").addClass("material-icons").text("add")
+                addButton.val(response.data[i].fullName);
+                var addIcon = $("<i>").addClass("material-icons").text("+");
                 addButton.append(addIcon)
                 imgDiv.append(addButton)
                 imgDiv.append(cardImg);
 
-
-
-
+                //create card body
                 var cardBody = $("<div>");
                 cardBody.addClass("card-content");
                 natureCard.append(cardBody);
 
-
+                //create card title displayed on images
                 // console.log(response.data[i].fullName);
                 var natureTitle = $('<span>');
                 natureTitle.text(response.data[i].fullName);
@@ -74,25 +76,56 @@ function searchCity(city) {
                 imgDiv.append(natureTitle);
 
 
+                //create description for card
                 // console.log(response.data[i].description);
                 var natureDescription = $("<p>");
                 natureDescription.addClass("nature-description");
                 natureDescription.text(response.data[i].description);
                 cardBody.append(natureDescription);
 
+                // //create collapsable
+                // var ulCollapse = $("<ul>");
+                // ulCollapse.addClass("collapsible");
+                // natureCard.append(ulCollapse);
+
+                // var listItem = $("<li>");
+                // ulCollapse.append(listItem);
+
+                // // Title for Collapse 
+                // var collapseTitle = $("<div>");
+                // collapseTitle.addClass("collapsible-header");
+                // collapseTitle.text("Operating Hours");
+                // listItem.append(collapseTitle);
+
+                // var collapseBody = $("<div>");
+                // collapseBody.addClass("collapsible-body")
+                // listItem.append(collapseBody);
+
+                // //content inside collapse
+                // console.log(response.data[i].operatingHours[0].standardHours.monday)
+                // var mon = response.data[i].operatingHours[0].standardHours.monday;
+                // var tues = response.data[i].operatingHours[0].standardHours.tuesday;
+                // var wed = response.data[i].operatingHours[0].standardHours.wednesday;
+                // var thurs = response.data[i].operatingHours[0].standardHours.thursday;
+                // var fri = response.data[i].operatingHours[0].standardHours.friday;
+                // var sat = response.data[i].operatingHours[0].standardHours.saturday;
+                // var sun = response.data[i].operatingHours[0].standardHours.sunday;
+                // // var opHours = (response.data[i].operatingHours[0]);
+                // var spanItem = $("<span>");
+                // spanItem.text("Monday: " + mon);
+                // collapseBody.append(spanItem);
 
 
+                //create link to directions
                 // console.log(response.data[i].directionsUrl);
                 var cardLinksSection = $("<div>").addClass("card-action");
                 natureCard.append(cardLinksSection);
-                var directionsLink = $("<a>").text("Directions");
+                var directionsLink = $("<a>").text("click here for directions");
                 directionsLink.attr("href", response.data[i].directionsUrl);
                 cardLinksSection.append(directionsLink);
 
 
-
-
-                addBtn.on("click", function (event) {
+                addButton.on("click", function (event) {
                     event.preventDefault();
 
                     // var recPlan = $(this).val();
@@ -101,10 +134,11 @@ function searchCity(city) {
                     console.log(recPlan);
 
                     var newListItem = $('<li>');
-                    newListItem.draggable();
-                    newListItem.addClass("ui-widget-content");
+                  
                     $(newListItem).append(recPlan);
-                    $('ul').append(newListItem);
+                    $('ul').append(newListItem);  
+                    $('li').draggable();
+                    $('li').addClass("ui-widget-content");
 
 
 
@@ -139,16 +173,11 @@ function searchCity(city) {
                     // }
                 })
 
-
-
-
             }
         }
-
     })
-    $("#city-input").val('');
+    // $("#city-input").val('');
 }
-
 
 
 
@@ -185,17 +214,15 @@ function searchRestaurants(inputCity) {
                 success: function (response) {
                     console.log(response)
 
-                    restNameArr = [];
+
 
                     for (var i = 0; i < 7; i++) {
                         // Create a div 
                         // Add to rest-content 
                         var restaurantCard = $("<div>")
                         restaurantCard.addClass("card rest-card");
-                        restaurantCard.draggable();
-                        restaurantCard.addClass("ui-widget-content");
                         $("#main-content").append(restaurantCard);
-
+                        let restaurantName = response.restaurants[i].restaurant.name;
 
                         // Retrieve image
                         // Create image div
@@ -203,15 +230,24 @@ function searchRestaurants(inputCity) {
                         // Create image element
                         // Set attributes
                         // Add to image div
+
                         var imgURL = "https://loremflickr.com/320/240/restaurant" + [i];
                         var imgDiv = $("<div>").addClass("card-image");
                         restaurantCard.append(imgDiv);
                         var cardImg = $("<img>");
                         cardImg.attr("src", imgURL);
+
+
+                        var addButton = $("<a>").addClass("btn-floating halfway-fab waves-effect waves-light red")
+                        addButton.attr("id", "addButton" + i);
+                        addButton.val(restaurantName);
+                        var addIcon = $("<i>").addClass("material-icons").text("+");
+                        addButton.append(addIcon)
+                        imgDiv.append(addButton)
                         imgDiv.append(cardImg);
 
-                        let restaurantName = response.restaurants[i].restaurant.name;
-                        restNameArr[i] = restaurantName;
+
+
 
 
 
@@ -261,53 +297,27 @@ function searchRestaurants(inputCity) {
                         menuLink.attr("href", response.restaurants[i].restaurant.menu_url);
                         cardLinksSection.append(menuLink);
 
-                        var addButtonText = $("<p>").text("Click the button to add to your list")
-                        cardLinksSection.append(addButtonText);
 
-                        // Create red 'addbutton' and add to card
-                        var addButton = $("<a>").addClass("btn-floating waves-effect  red ");
-                        addButton.addClass("add-button");
-                        addButton.addClass("right")
-                        addButton.attr("rest-name", restaurantName);
-                        var addIcon = $("<i>").addClass("material-icons center-align").text(restaurantName)
+                            // Add button click event
+                            addButton.on("click", function (event) {
+                            event.preventDefault();
 
-                        addButtonText.append(addButton)
-                        addButton.append(addIcon)
-                        //    var newListItem = '<li></li>'
-                        //     $('ul').append(newListItem);
-
-                        //      // Create heading for selections
-                        //     var selContentTitle = $("<h5>Selected Activities</h5>").addClass("center-align");
-                        //     selContentTitle.append('#sel-content');
-
-                        //     // console.log("Add button is clickable!")
-
-                        //     restaurantNameText = document.getElementsByClassName("card-title").innerHTML;
-                        //     console.log(restaurantNameText);
-                        //     $('li').append(restaurantNameText);
-
-
-
-
-
+                            //Define what text will be copied to activity list 
+                            var textToMove = event.currentTarget.value;
+                            
+                            // Create new li item for each button click (draggable)
+                            var newListItem = $('<li>');
+                          
+                            $(newListItem).append(textToMove);
+                            
+                            $('ul').append(newListItem);
+                            // Draggable must be added here
+                            $('li').draggable();
+                            $('li').addClass("ui-widget-content");
+    
+                        })
 
                     }
-                    // Add button function
-                    $(".add-button").click(function (e) {
-                        event.preventDefault();
-
-                        var textToMove = e.currentTarget.text
-                        console.log(textToMove);
-
-                        newListItem = $('<li>');
-                        newListItem.draggable();
-                        newListItem.addClass("ui-widget-content");
-                        $(newListItem).append(textToMove);
-                        $('ul').append(newListItem);
-
-
-
-                    })
 
                 }
             })
@@ -318,72 +328,45 @@ function searchRestaurants(inputCity) {
 
 
 }
+$('#clear-button').on('click', function(event){
+    event.preventDefault();
+    $('li').remove();
+  });
 
 // search click event
-
 $("#search-button").on("click", function (event) {
-
     event.preventDefault();
-
-
-    $('#sel-title').empty();
-
     var recRadio = $("input[id='recreation']:checked").val();
     var restaurantRadio = $("input[id='restaurants']:checked").val();
-
     var inputCity = $('#city-input').val().trim();
-
+    // radio button options
     if (recRadio) {
         searchCity(inputCity);
     } else if (restaurantRadio) {
         searchRestaurants(inputCity);
     }
-    // Create heading for selections
-    selContentTitle = $("<h5>Selected Activities</h5>");
-    $('#sel-content').prepend(selContentTitle);
 })
 
-
-
-
-
-// //   search click event
-
-// $("#search-button").on("click", function (event) {
-
-//     event.preventDefault();
-//     var inputCity = $('#city-input').val().trim();
-
-//     searchRestaurants(inputCity);
-//     searchCity(inputCity)
-
-// })
-
 // Create schedule
+
 // Define Variables
 let currentDate = moment().format("dddd, MMMM Do YYYY");
 let globalHour = moment().format("HH");
-
 const hours = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
 const container = $('#planner-body');
-
-
 
 // Sets current date at the header
 $("#currentDay").text(currentDate);
 
-
-
-
-
+// Create rows for each hour
 hours.forEach(function (hour) {
+
     // Build the row
     const rowDiv = $('<form>');
-
     rowDiv.addClass('row time-block ui-widget-header');
+
     // build the hour div
     const hourDiv = $('<div>');
-
     hourDiv.attr('id', 'hour-' + hour);
     const currentHour = hour === 12 ? 12 : hour % 12;
     const amOrPm = (hour > 11) ? 'PM' : 'AM';
@@ -391,9 +374,7 @@ hours.forEach(function (hour) {
     hourDiv.addClass('col s3');
     hourDiv.addClass('hour');
 
-
     // append to row div
-    // hourDiv.addClass("ui-widget-header");
     rowDiv.append(hourDiv);
 
     // build the input
@@ -401,54 +382,26 @@ hours.forEach(function (hour) {
         type: 'Text',
     })
     inputDiv.addClass('col s6');
-    // inputDiv.addClass("ui-widget-header");
+    inputDiv.addClass("ui-widget-header");
 
-
-
-    inputDiv.val(localStorage.getItem("taskHour" + hour));
-    // Add classes based on current time
-    if (hour === globalHour) {
-        inputDiv.addClass('present');
-    }
-    if (hour < globalHour) {
-        inputDiv.addClass('past');
-    }
-    if (hour > globalHour) {
-        inputDiv.addClass('future');
-    }
-
+    // Get planner items from local storage
+     inputDiv.val(localStorage.getItem("taskHour" + hour));
 
     // append to row div
     rowDiv.append(inputDiv);
     container.append(rowDiv);
+    
+    
+    $("#save-button").on('click',function(event){
+    event.preventDefault();
+   var inputText = $(inputDiv).val();
+   console.log("yes im working");
+   localStorage.setItem("taskHour"+ hour, inputText);
 
+   })
 })
 
-$(function () {
-    $(".ui-widget-content").draggable();
-    $(".ui-widget-header").droppable(
-        {
-            hoverClass: "drop-hover",
-            accept: ".ui-widget-content",
-
-            drop: function (ev, ui) {
-                alert("I am dropped");
-                var plannerText = $(ui.draggable).text()
-                $(this).find("input").val(plannerText)
-                // $(ui.draggable).detach().css({top: 0,left: 0}).appendTo(this);
-
-
-
-
-
-
-            }
-        }
-    )
-})
-
-
-
+// Drag and drop function
 $(function () {
     $(".ui-widget-content").draggable();
     $(".ui-widget-header").droppable(
@@ -460,7 +413,7 @@ $(function () {
 
                 var plannerText = $(ui.draggable).text()
                 $(this).find("input").val(plannerText)
-                // $(ui.draggable).detach().css({top: 0,left: 0}).appendTo(this);
+                $(ui.draggable).detach().css({ top: 0, left: 0 }).appendTo("input");
 
 
 
@@ -505,18 +458,7 @@ function initMap() {
         zoom: 4,
         center: location,
     })
+}
 
-    // Create search box inside map:
-    var input = document.getElementById("searchInput");
-    var searchBox = new google.maps.places.SearchBox(input);
-    map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-    map.addListener("bounds_changed", () => {
-        searchBox.setBounds(map.getBounds());
-    });
 
-    // The marker, positioned at our location (San Diego)
-    var marker = new google.maps.Marker({
-        position: location,
-        map: map
-    });
-};
+
