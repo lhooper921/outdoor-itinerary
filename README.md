@@ -68,5 +68,6 @@ THEN I am able to add or remove any information to my planner as needed
 ![Screenshot 9]
 
 ## APIs Used
-
+[National Parks Service](https://www.nps.gov/subjects/digital/nps-data-api.htm)  
 [Zomato](https://developers.zomato.com/api#headline1)
+[Google Maps](https://developers.google.com/maps/documentation)
