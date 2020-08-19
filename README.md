@@ -49,7 +49,7 @@ Performed search for New Orleans outdoor activities
 Build the activity list
 ![Screenshot 3](https://github.com/christ-ine/outdoor-itinerary/blob/master/screenshot3.PNG)  
 
-
+Add to planner
 ![Screenshot 4](https://github.com/christ-ine/outdoor-itinerary/blob/master/screenshot4.PNG) 
 
 
