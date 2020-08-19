@@ -52,7 +52,7 @@ Build the activity list
 Add to planner
 ![Screenshot 4](https://github.com/christ-ine/outdoor-itinerary/blob/master/screenshot4.PNG) 
 
-
+Using save button, planner items still remain after reloading the page
 ![Screenshot 5](https://github.com/christ-ine/outdoor-itinerary/blob/master/screenshot5.PNG) 
 ![Screenshot 6](https://github.com/christ-ine/outdoor-itinerary/blob/master/screenshot6.PNG) 
 
