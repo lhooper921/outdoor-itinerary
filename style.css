@@ -42,9 +42,13 @@ body {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
-  background-image: url(./lake_forest_mountain.jpeg);
+  background-image: url(./nature.jpg);
   background-repeat: no-repeat;
-  background-size: cover;
   background-position: center;
+  background-size: cover;
   background-attachment: scroll;
+}
+
+form {
+  background-color: white;
 }

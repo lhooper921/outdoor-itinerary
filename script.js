@@ -1,13 +1,3 @@
-// // Use pushpin to fix position of planner
-// var pushpinDiv = document.getElementById('planner-body');
-// var pushpinDivOptions = {
-//     top: 60,
-//     offset: 20,
-
-// }
-// var instancePushpinDiv = M.Pushpin.init(pushpinDiv, pushpinDivOptions);
-
-
 
 
 function searchCity(inputCity) {
@@ -307,13 +297,14 @@ function searchRestaurants(inputCity) {
                             
                             // Create new li item for each button click (draggable)
                             var newListItem = $('<li>');
-                          
+                            newListItem.addClass('activity')
+                            
                             $(newListItem).append(textToMove);
                             
-                            $('ul').append(newListItem);
+                            $('#Activity-list').append(newListItem);
                             // Draggable must be added here
-                            $('li').draggable();
-                            $('li').addClass("ui-widget-content");
+                            $('.activity').draggable();
+                            $('.activity').addClass("ui-widget-content");
     
                         })
 
@@ -333,6 +324,8 @@ $('#clear-button').on('click', function(event){
     $('li').remove();
   });
 
+ 
+
 // search click event
 $("#search-button").on("click", function (event) {
     event.preventDefault();
@@ -350,7 +343,7 @@ $("#search-button").on("click", function (event) {
 // Create schedule
 
 // Define Variables
-let currentDate = moment().format("dddd, MMMM Do YYYY");
+let currentDate = moment().format("dddd, MMMM Do YYYY; h:mm a");
 let globalHour = moment().format("HH");
 const hours = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21];
 const container = $('#planner-body');
@@ -397,8 +390,10 @@ hours.forEach(function (hour) {
    var inputText = $(inputDiv).val();
    console.log("yes im working");
    localStorage.setItem("taskHour"+ hour, inputText);
+ });
 
-   })
+
+  
 })
 
 // Drag and drop function
@@ -424,41 +419,6 @@ $(function () {
         }
     )
 })
-
-// Display city weather
-$("#search-button").on("click", function (event) {
-    event.preventDefault();
-    var city = $("#city-input").val();
-    var apiKey = "15e194eb7337b7a0b68384d6ffba65cc";
-
-    // AJAX for Weather Info:
-    $.ajax({
-      url: "https://api.openweathermap.org/data/2.5/weather?q=" + encodeURIComponent(city) + ",Burundi&appid=" + apiKey,
-      method: "GET"
-    }).then(function (response) {
-      // console.log(response);
-      // console.log(response.main.temp);
-      $("#city").html("<p>" + response.name + "</p>");
-    //   $(".humidity").text("Humidity:" + response.main.humidity + "%");
-    //   $(".wind").text("Wind:" + response.wind.speed);
-
-      // Converts temp from Kelvin to Fahrenheit:
-      var temp = (response.main.temp - 273.15) * 1.80 + 32;
-      $("#temp").text("Temperature:" + temp.toFixed(2) + "F");
-    }
-    )}
-)
-
-// Initialize and add the map
-function initMap() {
-    // The location on map (San Diego):
-    var location = { lat: 32.715, lng: -117.161 };
-    // The map, centered on screen:
-    var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 4,
-        center: location,
-    })
-}
 
 
 
