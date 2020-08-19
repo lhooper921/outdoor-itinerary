@@ -40,32 +40,20 @@ THEN I am able to add or remove any information to my planner as needed
 
 
 
-![Screenshot 1]
+![Screenshot 1](https://github.com/christ-ine/outdoor-itinerary/blob/master/screenshot1.PNG)  
 
 
 
-![Screenshot 2]
+![Screenshot 2](https://github.com/christ-ine/outdoor-itinerary/blob/master/screenshot2.PNG)  
 
-![Screenshot 3]
+![Screenshot 3](https://github.com/christ-ine/outdoor-itinerary/blob/master/screenshot3.PNG)  
 
-![Screenshot 4]
-
-
-![Screenshot 5]
+![Screenshot 4](https://github.com/christ-ine/outdoor-itinerary/blob/master/screenshot4.PNG) 
 
 
-![Screenshot 6]
+![Screenshot 5](https://github.com/christ-ine/outdoor-itinerary/blob/master/screenshot5.PNG) 
 
 
-
-![Screenshot 7]
-
-
-![Screenshot 8]
-
-
-
-![Screenshot 9]
 
 ## APIs Used
 [National Parks Service](https://www.nps.gov/subjects/digital/nps-data-api.htm)  
