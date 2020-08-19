@@ -39,33 +39,23 @@ THEN I am able to add or remove any information to my planner as needed
 ## Screenshots
 
 
-
-![Screenshot 1]
-
-
-
-![Screenshot 2]
-
-![Screenshot 3]
-
-![Screenshot 4]
+Default page before search
+![Screenshot 1](https://github.com/christ-ine/outdoor-itinerary/blob/master/screenshot1.PNG)  
 
 
-![Screenshot 5]
+Performed search for New Orleans outdoor activities
+![Screenshot 2](https://github.com/christ-ine/outdoor-itinerary/blob/master/screenshot2.PNG)  
 
+Build the activity list
+![Screenshot 3](https://github.com/christ-ine/outdoor-itinerary/blob/master/screenshot3.PNG)  
 
-![Screenshot 6]
+Add to planner
+![Screenshot 4](https://github.com/christ-ine/outdoor-itinerary/blob/master/screenshot4.PNG) 
 
+Using save button, planner items still remain after reloading the page
+![Screenshot 5](https://github.com/christ-ine/outdoor-itinerary/blob/master/screenshot5.PNG) 
+![Screenshot 6](https://github.com/christ-ine/outdoor-itinerary/blob/master/screenshot6.PNG) 
 
-
-![Screenshot 7]
-
-
-![Screenshot 8]
-
-
-
-![Screenshot 9]
 
 ## APIs Used
 [National Parks Service](https://www.nps.gov/subjects/digital/nps-data-api.htm)  
