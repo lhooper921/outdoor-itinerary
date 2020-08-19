@@ -39,20 +39,22 @@ THEN I am able to add or remove any information to my planner as needed
 ## Screenshots
 
 
-
+Default page before search
 ![Screenshot 1](https://github.com/christ-ine/outdoor-itinerary/blob/master/screenshot1.PNG)  
 
 
-
+Performed search for New Orleans outdoor activities
 ![Screenshot 2](https://github.com/christ-ine/outdoor-itinerary/blob/master/screenshot2.PNG)  
 
+Build the activity list
 ![Screenshot 3](https://github.com/christ-ine/outdoor-itinerary/blob/master/screenshot3.PNG)  
+
 
 ![Screenshot 4](https://github.com/christ-ine/outdoor-itinerary/blob/master/screenshot4.PNG) 
 
 
 ![Screenshot 5](https://github.com/christ-ine/outdoor-itinerary/blob/master/screenshot5.PNG) 
-
+![Screenshot 6](https://github.com/christ-ine/outdoor-itinerary/blob/master/screenshot6.PNG) 
 
 
 ## APIs Used
