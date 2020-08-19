@@ -321,7 +321,7 @@ function searchRestaurants(inputCity) {
 }
 $('#clear-button').on('click', function(event){
     event.preventDefault();
-    $('li').remove();
+    $('.activity').remove();
   });
 
  
