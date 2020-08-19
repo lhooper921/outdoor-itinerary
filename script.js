@@ -420,5 +420,40 @@ $(function () {
     )
 })
 
+// Display city weather
+$("#search-button").on("click", function (event) {
+    event.preventDefault();
+    var city = $("#city-input").val();
+    var apiKey = "15e194eb7337b7a0b68384d6ffba65cc";
+
+    // AJAX for Weather Info:
+    $.ajax({
+      url: "https://api.openweathermap.org/data/2.5/weather?q=" + encodeURIComponent(city) + ",Burundi&appid=" + apiKey,
+      method: "GET"
+    }).then(function (response) {
+      // console.log(response);
+      // console.log(response.main.temp);
+      $("#city").html("<p>" + response.name + "</p>");
+    //   $(".humidity").text("Humidity:" + response.main.humidity + "%");
+    //   $(".wind").text("Wind:" + response.wind.speed);
+
+      // Converts temp from Kelvin to Fahrenheit:
+      var temp = (response.main.temp - 273.15) * 1.80 + 32;
+      $("#temp").text("Temperature:" + temp.toFixed(2) + "F");
+    }
+    )}
+)
+
+// Initialize and add the map
+function initMap() {
+    // The location on map (San Diego):
+    var location = { lat: 32.715, lng: -117.161 };
+    // The map, centered on screen:
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 4,
+        center: location,
+    })
+}
+
 
 
